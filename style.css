@@ -1,0 +1,54 @@
+:root {
+  --button-background-color: springgreen;
+  --button-border-color: springgreen;
+  --calculator-body-color: gray;
+  --calculator-display-background: whitesmoke;
+}
+
+#calculatorBody {
+  margin: auto;
+  display: grid;
+  font-size: 1.5rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background: var(--calculator-body-color);
+  gap: 7px;
+  width: 300px;
+  padding: 1rem;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+button {
+  height: 4rem;
+  font-size: 1.5rem;
+
+  border-radius: 5px;
+}
+
+.numberButton {
+  background: var(--button-background-color);
+  border: 4px outset var(--button-border-color);
+}
+
+button:active {
+  border-style: inset;
+}
+
+#calculatorDisplay {
+  padding: 0.5rem 1rem;
+  border: 2px solid black;
+  background: var(--calculator-display-background);
+  border-radius: 5px;
+  grid-column: span 4;
+  text-align: right;
+  height: 4rem;
+}
+
+#clear,
+#delete {
+  grid-column: span 2;
+}
+
+#equals {
+  grid-column: 3 / span 2;
+}
