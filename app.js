@@ -23,6 +23,7 @@ function doMath() {
   const equals = document.getElementById("equals");
 
   //Other Buttons
+  const toggleSign = document.getElementById("toggleSign");
   const clear = document.getElementById("clear");
   const deleteLast = document.getElementById("delete");
 
@@ -54,18 +55,12 @@ function doMath() {
     }
   }
 
-  //Looks weird but toggles the operand that's being modified
-  function toggleOperand() {
-    if (currentOperand === "first") {
-      return (currentOperand = "second");
-    }
-    if (currentOperand === "second") {
-      return (currentOperand = "first");
-    }
-  }
-
   function updateDisplay() {
     display.innerHTML = operands[currentOperand];
+  }
+
+  function roundToTen(num) {
+    return +(Math.round(num + "e+10") + "e-10");
   }
 
   //Button Event Listeners
@@ -149,11 +144,10 @@ function doMath() {
         display.innerHTML = operands["first"];
       }
     } else {
-      operands["first"] = operate(
-        operands["first"],
-        operands["second"],
-        operator
-      ).toString(); //Needs to be a string in order to use delete button on it.
+      const result = roundToTen(
+        operate(operands["first"], operands["second"], operator)
+      );
+      operands["first"] = result.toString(); //Needs to be a string in order to use delete button on it.
       operands["second"] = "";
       operator = null;
 
@@ -170,6 +164,109 @@ function doMath() {
   clear.addEventListener("click", () => {
     doMath();
   });
+
+  //=============Keyboard Event Listeners============
+  //Button Event Listeners
+  // zero.addEventListener("click", () => {
+  //   operands[currentOperand] += "0";
+  //   updateDisplay();
+  // });
+  // one.addEventListener("click", () => {
+  //   operands[currentOperand] += "1";
+  //   updateDisplay();
+  // });
+  // two.addEventListener("click", () => {
+  //   operands[currentOperand] += "2";
+  //   updateDisplay();
+  // });
+  // three.addEventListener("click", () => {
+  //   operands[currentOperand] += "3";
+  //   updateDisplay();
+  // });
+  // four.addEventListener("click", () => {
+  //   operands[currentOperand] += "4";
+  //   updateDisplay();
+  // });
+  // five.addEventListener("click", () => {
+  //   operands[currentOperand] += "5";
+  //   updateDisplay();
+  // });
+  // six.addEventListener("click", () => {
+  //   operands[currentOperand] += "6";
+  //   updateDisplay();
+  // });
+  // seven.addEventListener("click", () => {
+  //   operands[currentOperand] += "7";
+  //   updateDisplay();
+  // });
+  // eight.addEventListener("click", () => {
+  //   operands[currentOperand] += "8";
+  //   updateDisplay();
+  // });
+  // nine.addEventListener("click", () => {
+  //   operands[currentOperand] += "9";
+  //   updateDisplay();
+  // });
+  // decimal.addEventListener("click", () => {
+  //   if (operands[currentOperand].includes(".") === false) {
+  //     operands[currentOperand] += ".";
+  //     updateDisplay();
+  //   }
+  // });
+
+  // //Operator event listeners
+  // add.addEventListener("click", () => {
+  //   operator = "add";
+  //   currentOperand = "second";
+  //   display.innerHTML = "+";
+  // });
+
+  // subtract.addEventListener("click", () => {
+  //   operator = "subtract";
+  //   currentOperand = "second";
+  //   display.innerHTML = "-";
+  // });
+
+  // multiply.addEventListener("click", () => {
+  //   operator = "multiply";
+  //   currentOperand = "second";
+  //   display.innerHTML = "x";
+  // });
+
+  // divide.addEventListener("click", () => {
+  //   operator = "divide";
+  //   currentOperand = "second";
+  //   display.innerHTML = "/";
+  // });
+
+  // equals.addEventListener("click", () => {
+  //   if (operands["second"] === "") {
+  //     if (operands["first"] === "") {
+  //       display.innerHTML = "";
+  //     } else {
+  //       display.innerHTML = operands["first"];
+  //     }
+  //   } else {
+  //     const result = roundToTen(
+  //       operate(operands["first"], operands["second"], operator)
+  //     );
+  //     operands["first"] = result.toString(); //Needs to be a string in order to use delete button on it.
+  //     operands["second"] = "";
+  //     operator = null;
+
+  //     currentOperand = "first";
+  //     updateDisplay();
+  //   }
+  // });
+
+  // deleteLast.addEventListener("click", () => {
+  //   operands[currentOperand] = operands[currentOperand].slice(0, -1);
+  //   updateDisplay();
+  // });
+
+  // clear.addEventListener("click", () => {
+  //   doMath();
+  // });
 
   updateDisplay(); //Calls function to clear display every time main function is run.
 }
